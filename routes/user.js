@@ -47,18 +47,13 @@ userRouter.post("/user/signin", async (req, res) => {
   if (!user) {
     return res.status(401).json({ error: "Invalid email or password" });
   } else {
-    jwt.sign(
+    const token =jwt.sign(
       {
         userId: user._id,
-      },
-      JWT_USER_PASSWORD
-    );
-
+      },JWT_USER_PASSWORD );
+    }
     //do cookie logic
-
-    //here we are doing the cookiwe based authentication
-   
-  }
+  
   // Compare password
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
