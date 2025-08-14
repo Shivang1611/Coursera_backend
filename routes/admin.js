@@ -4,10 +4,10 @@ import { adminModel } from '../db.js';
 
 const adminRouter = express.Router();
 
-adminRouter.post("/user/signup", function (req, res) {
+adminRouter.post("/admin/signup", function (req, res) {
     res.send({ message: "User signed up successfully" });
   });
-adminRouter.post("/signin", function (req, res) {
+adminRouter.post("/admin/signin", function (req, res) {
     req.json({
       message: "User signed in successfully",
     });
