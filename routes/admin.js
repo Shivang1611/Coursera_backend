@@ -96,14 +96,34 @@ adminRouter.post("/course", adminMiddleware ,async function (req, res) {
   });
 });
 adminRouter.put("/course", adminMiddleware ,async function (req, res) {
+  const adminId=req.userId;
+  const {tittle,description,imageUrl,price,courseId}=req.body;
+  const course=await courseModel.updateOne({
+    _id:courseId,
+  createrId:adminId,},
+    {
+    tittle:tittle,
+    description:description,
+    imageUrl:imageUrl,
+    price:price,
+
+  });
+
+
   res.json({
     message: "course updated succesfully",
   });
 });
 
-adminRouter.get("/course/bulk", function (req, res) {
+adminRouter.get("/course/bulk", adminMiddleware ,async function (req, res) {
+  const adminId=req.userId;
+  const courses=await courseModel.find({
+   
+  createrId:adminId,});
+
+
   res.json({
-    message: "get all the course succesfully",
+    message: "course updated succesfully",
   });
 });
 
