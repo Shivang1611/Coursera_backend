@@ -2,10 +2,10 @@ import express from 'express';
 import { adminModel } from '../db.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { JWT_ADMIN_PASSWORD } from '../config.js';
 
 
-
-const JWT_ADMIN_PASSWORD = 'admin123'; // This should be stored in an environment variable for security
+ // This should be stored in an environment variable for security
 const adminRouter = express.Router();
 
 adminRouter.post("/admin/signup", async function (req, res) {
@@ -80,11 +80,27 @@ try {
   }
 });
 
-adminRouter.put("/course", function (req, res) {
+adminRouter.post("/course", adminMiddleware ,async function (req, res) {
+  const adminId=req.userId;
+  const {tittle,description,imageUrl,price}=req.body;
+  await courseModel.create({
+    tittle:tittle,
+    description:description,
+    imageUrl:imageUrl,
+    price:price,
+    creatorId:adminId,
+  });
   res.json({
-    message: "changed the the course successfully",
+    message: "course created succesfully",
+    courseId:course._id
   });
 });
+adminRouter.put("/course", adminMiddleware ,async function (req, res) {
+  res.json({
+    message: "course updated succesfully",
+  });
+});
+
 adminRouter.get("/course/bulk", function (req, res) {
   res.json({
     message: "get all the course succesfully",

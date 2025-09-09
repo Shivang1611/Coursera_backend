@@ -3,9 +3,11 @@ import { userModel } from "../db.js";
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { JWT_USER_PASSWORD } from "../config.js";
+
 const userRouter = express.Router();
 
-const JWT_USER_PASSWORD = "123abc"; // This should be stored in an environment variable for security
+// This should be stored in an environment variable for security
 
 userRouter.post("/signup", async (req, res) => {
   const { email, password, firstName, lastName } = req.body; //we are missing the zord va;lidation
