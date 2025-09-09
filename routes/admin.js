@@ -3,6 +3,8 @@ import { adminModel } from '../db.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { JWT_ADMIN_PASSWORD } from '../config.js';
+import { adminMiddleware } from '../middleware/Admin.middleware.js';
+
 
 
  // This should be stored in an environment variable for security
